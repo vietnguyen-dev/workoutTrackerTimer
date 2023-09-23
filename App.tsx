@@ -9,21 +9,37 @@ import SignInScreen from "./components/screens/signin";
 import styles from "./components/UI/styles";
 
 export default function App() {
-  const [appState, setAppState] = useState<"home" | "plan" | "workout">("home");
+  const [appState, setAppState] = useState<"home" | "plan" | "workout">("plan");
+  const [signUpState, setSignUpState] = useState<"up" | "in">("in");
 
   return (
     <ClerkProvider publishableKey={Constants.expoConfig?.extra?.clerkKey!}>
       <SafeAreaView>
         <SignedIn>
-          <View style={styles.page}>
-            <Text>You are Signed in</Text>
-          </View>
+          {appState === "home" && <Home />}
+          {appState === "plan" && <Plan />}
         </SignedIn>
         <SignedOut>
-          <SignInScreen />
+          {signUpState ? <SignInScreen /> : <SignUpScreen />}
         </SignedOut>
       </SafeAreaView>
       <StatusBar />
     </ClerkProvider>
   );
 }
+
+const Home = () => {
+  return (
+    <View style={styles.page}>
+      <Text>HOme</Text>
+    </View>
+  );
+};
+
+const Plan = () => {
+  return (
+    <View style={styles.page}>
+      <Text>Plan</Text>
+    </View>
+  );
+};

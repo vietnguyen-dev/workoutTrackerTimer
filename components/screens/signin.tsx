@@ -4,7 +4,11 @@ import { useSignIn } from "@clerk/clerk-expo";
 
 import styles from "../UI/styles";
 
-export default function SignInScreen() {
+interface iSignInScreen {
+  switch: Function;
+}
+
+const SignInScreen = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [emailAddress, setEmailAddress] = React.useState("");
@@ -51,4 +55,6 @@ export default function SignInScreen() {
       </View>
     </View>
   );
-}
+};
+
+export default SignInScreen;
