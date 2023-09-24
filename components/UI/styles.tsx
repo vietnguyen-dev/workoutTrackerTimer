@@ -16,13 +16,15 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   input: {
-    // flex: 1,
-    // width: "100%",
     borderWidth: 1,
     borderColor: "#000000",
     padding: 10,
     borderRadius: 6,
     marginBottom: 6,
+  },
+  link: {
+    textDecorationLine: "underline",
+    padding: 3,
   },
   btnText: {
     textAlign: "center",
@@ -37,6 +39,9 @@ const styles = StyleSheet.create({
   middlePage: {
     flex: 1,
     justifyContent: "center",
+  },
+  alignRight: {
+    textAlign: "right",
   },
 });
 

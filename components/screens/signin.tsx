@@ -5,10 +5,10 @@ import { useSignIn } from "@clerk/clerk-expo";
 import styles from "../UI/styles";
 
 interface iSignInScreen {
-  switch: Function;
+  switchUp: Function;
 }
 
-const SignInScreen = () => {
+const SignInScreen: React.FC<iSignInScreen> = ({ switchUp }) => {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [emailAddress, setEmailAddress] = React.useState("");
@@ -53,6 +53,9 @@ const SignInScreen = () => {
           <Text style={styles.btnText}>Sign in</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={() => switchUp()}>
+        <Text style={[styles.alignRight, styles.link]}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 };

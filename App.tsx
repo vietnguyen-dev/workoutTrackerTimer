@@ -12,6 +12,9 @@ export default function App() {
   const [appState, setAppState] = useState<"home" | "plan" | "workout">("plan");
   const [signUpState, setSignUpState] = useState<"up" | "in">("in");
 
+  const switchUp = () => setSignUpState("up");
+  const switchIn = () => setSignUpState("in");
+
   return (
     <ClerkProvider publishableKey={Constants.expoConfig?.extra?.clerkKey!}>
       <SafeAreaView>
@@ -20,7 +23,11 @@ export default function App() {
           {appState === "plan" && <Plan />}
         </SignedIn>
         <SignedOut>
-          {signUpState ? <SignInScreen /> : <SignUpScreen />}
+          {signUpState === "in" ? (
+            <SignInScreen switchUp={switchUp} />
+          ) : (
+            <SignUpScreen switchIn={switchIn} />
+          )}
         </SignedOut>
       </SafeAreaView>
       <StatusBar />

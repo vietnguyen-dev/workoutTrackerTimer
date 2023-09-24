@@ -1,26 +1,20 @@
 import * as React from "react";
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 
 import styles from "../UI/styles";
 
-export default function SignUpScreen() {
-  const { isLoaded, signUp, setActive } = useSignUp();
+interface iSignUpScreen {
+  switchIn: Function;
+}
 
-  let colorScheme = useColorScheme();
+const SignUpScreen: React.FC<iSignUpScreen> = ({ switchIn }) => {
+  const { isLoaded, signUp, setActive } = useSignUp();
 
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
-
-  //   console.log(colorScheme);
 
   // start the sign up process.
   const onSignUpPress = async () => {
@@ -64,33 +58,38 @@ export default function SignUpScreen() {
   return (
     <View style={styles.page}>
       {!pendingVerification && (
-        <View style={styles.middlePage}>
-          <Text style={styles.title}>Workout Tracker and Timer</Text>
-          <View>
-            <TextInput
-              autoCapitalize="none"
-              value={emailAddress}
-              placeholder="Email..."
-              onChangeText={(email) => setEmailAddress(email)}
-              style={styles.input}
-            />
-          </View>
+        <>
+          <View style={styles.middlePage}>
+            <Text style={styles.title}>Workout Tracker and Timer</Text>
+            <View>
+              <TextInput
+                autoCapitalize="none"
+                value={emailAddress}
+                placeholder="Email..."
+                onChangeText={(email) => setEmailAddress(email)}
+                style={styles.input}
+              />
+            </View>
 
-          <View>
-            <TextInput
-              value={password}
-              placeholder="Password..."
-              //   placeholderTextColor="#000"
-              secureTextEntry={true}
-              onChangeText={(password) => setPassword(password)}
-              style={styles.input}
-            />
-          </View>
+            <View>
+              <TextInput
+                value={password}
+                placeholder="Password..."
+                //   placeholderTextColor="#000"
+                secureTextEntry={true}
+                onChangeText={(password) => setPassword(password)}
+                style={styles.input}
+              />
+            </View>
 
-          <TouchableOpacity onPress={onSignUpPress} style={styles.btnPrimary}>
-            <Text style={styles.btnText}>Sign up</Text>
+            <TouchableOpacity onPress={onSignUpPress} style={styles.btnPrimary}>
+              <Text style={styles.btnText}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity onPress={() => switchIn()}>
+            <Text style={[styles.alignRight, styles.link]}>Sign In</Text>
           </TouchableOpacity>
-        </View>
+        </>
       )}
       {pendingVerification && (
         <View style={styles.middlePage}>
@@ -109,4 +108,6 @@ export default function SignUpScreen() {
       )}
     </View>
   );
-}
+};
+
+export default SignUpScreen;
